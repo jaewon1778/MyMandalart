@@ -7,8 +7,8 @@ import com.jaewon.mymandalart.R
 
 data class MandalartData(
     var m9List: MutableList<Matrix9Data> = mutableListOf(),
-    var osCenterOfSubList: MutableList<EditText> = mutableListOf(),
-    var osSubOfCenterList: MutableList<EditText> = mutableListOf(),
+//    var osCenterOfSubList: MutableList<EditText> = mutableListOf(),
+//    var osSubOfCenterList: MutableList<EditText> = mutableListOf(),
     val ND: NumberData = NumberData()
 ) {
     fun initMan() {
@@ -34,50 +34,50 @@ data class MandalartData(
             }
         }
     }
-    fun setBlue(cnt : Int){
-        osSubOfCenterList[cnt].setBackgroundResource(R.drawable.bg_one_section_blue)
-    }
-
-    fun wholeCenterUpdate(){
-        for (i in 0 until osCenterOfSubList.size){
-//            if (i==4) continue
-            eachCenterUpdate(osCenterOfSubList[i],osSubOfCenterList[i])
-//            Log.d("EDITUP", "subCenterET: ${m9List[i].osList[4].editText}")
-        }
-    }
-
-
-    fun eachCenterUpdate(subCenterET: EditText, centerSubET: EditText) {
-        var scTextWatcher = object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                centerSubET.text = s
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-        }
-        var csTextWatcher = object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                subCenterET.removeTextChangedListener(scTextWatcher)
-                subCenterET.text = s
-                subCenterET.addTextChangedListener(scTextWatcher)
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-        }
-        subCenterET.addTextChangedListener(scTextWatcher)
-        centerSubET.addTextChangedListener(csTextWatcher)
-
-    }
+//    fun setBlue(cnt : Int){
+//        osSubOfCenterList[cnt].setBackgroundResource(R.drawable.bg_one_section_blue)
+//    }
+//
+//    fun wholeCenterUpdate(){
+//        for (i in 0 until osCenterOfSubList.size){
+////            if (i==4) continue
+//            eachCenterUpdate(osCenterOfSubList[i],osSubOfCenterList[i])
+////            Log.d("EDITUP", "subCenterET: ${m9List[i].osList[4].editText}")
+//        }
+//    }
+//
+//
+//    fun eachCenterUpdate(subCenterET: EditText, centerSubET: EditText) {
+//        var scTextWatcher = object : TextWatcher {
+//            override fun afterTextChanged(s: Editable?) {
+//                centerSubET.text = s
+//            }
+//
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//
+//            }
+//        }
+//        var csTextWatcher = object : TextWatcher {
+//            override fun afterTextChanged(s: Editable?) {
+//                subCenterET.removeTextChangedListener(scTextWatcher)
+//                subCenterET.text = s
+//                subCenterET.addTextChangedListener(scTextWatcher)
+//            }
+//
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//
+//            }
+//        }
+//        subCenterET.addTextChangedListener(scTextWatcher)
+//        centerSubET.addTextChangedListener(csTextWatcher)
+//
+//    }
 }

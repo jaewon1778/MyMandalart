@@ -40,7 +40,6 @@ class MainActivity : MyAppActivity() {
         mandalartData.initMan()
 
         mainMdlAdapter = MainMdlAdapter()
-        mainMdlAdapter.mandalartData = mandalartData
 
 
         gridManager = GridLayoutManager(this, 3)
@@ -67,17 +66,19 @@ class MainActivity : MyAppActivity() {
                 softKeyboardHide(this)
             }
             cnt = 0
-            mandalartData.wholeCenterUpdate()
+//            mandalartData.wholeCenterUpdate()
+            wholeCenterUpdate(binding.mainGrid)
 
         }
         binding.btnCheck.setOnClickListener {
-            mandalartData.setBlue(cnt)
+            val m9 = binding.mainGrid[ND.MANCENTER] as RecyclerView
+            setBlue(m9[cnt] as EditText)
             cnt++
         }
 
         binding.btnTest.setOnClickListener {
-            mandalartData.wholeCenterUpdate()
-
+//            mandalartData.wholeCenterUpdate()
+        wholeCenterUpdate(binding.mainGrid)
         }
 
     }
@@ -92,8 +93,6 @@ class MainActivity : MyAppActivity() {
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateMan(){
-        mandalartData.osSubOfCenterList.clear()
-        mandalartData.osCenterOfSubList.clear()
         binding.mainGrid.adapter?.notifyDataSetChanged()
         binding.mainGrid.adapter?.notifyItemRangeChanged(0,8)
     }
@@ -116,5 +115,53 @@ class MainActivity : MyAppActivity() {
         }
     }
 
+
+    fun wholeCenterUpdate(maingrid: RecyclerView){
+        val cenM9 = maingrid[ND.MANCENTER] as RecyclerView
+        for (i in ND.MANSTART .. ND.MANEND){
+            if (i == ND.MANCENTER) continue
+            val subM9 = maingrid[i] as RecyclerView
+            eachCenterUpdate(subM9[ND.MANCENTER] as EditText, cenM9[i] as EditText)
+        }
+    }
+
+
+    fun eachCenterUpdate(subCenterET: EditText, centerSubET: EditText) {
+        val scTextWatcher = object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                centerSubET.text = s
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+        }
+        val csTextWatcher = object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                subCenterET.removeTextChangedListener(scTextWatcher)
+                subCenterET.text = s
+                subCenterET.addTextChangedListener(scTextWatcher)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+        }
+        subCenterET.addTextChangedListener(scTextWatcher)
+        centerSubET.addTextChangedListener(csTextWatcher)
+
+    }
+
+    fun setBlue(target: EditText){
+        target.setBackgroundResource(R.drawable.bg_one_section_blue)
+    }
 
 }

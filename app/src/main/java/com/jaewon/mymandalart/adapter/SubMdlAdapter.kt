@@ -12,13 +12,11 @@ import com.jaewon.mymandalart.data.OneSectionData
 import com.jaewon.mymandalart.databinding.OneSectionBinding
 
 class SubMdlAdapter : RecyclerView.Adapter<SubMdlAdapter.SubMdlViewHolder>() {
-    lateinit var mandalartData : MandalartData
-//    var m9Num : Int = 0
     var osList = mutableListOf<OneSectionData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubMdlViewHolder {
         return SubMdlViewHolder(OneSectionBinding
-            .inflate(LayoutInflater.from(parent.context),parent,false),mandalartData)
+            .inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
     override fun getItemCount(): Int {
@@ -29,33 +27,13 @@ class SubMdlAdapter : RecyclerView.Adapter<SubMdlAdapter.SubMdlViewHolder>() {
         holder.bind(osList[position])
     }
 
-    class SubMdlViewHolder(private val binding: OneSectionBinding, var mandalartData: MandalartData) : RecyclerView.ViewHolder(binding.root) {
-        val ND = NumberData()
+    class SubMdlViewHolder(private val binding: OneSectionBinding) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n", "ResourceAsColor")
         fun bind(osData: OneSectionData) {
             binding.txtOneSection.setText(osData.text)
             binding.txtOneSection.isFocusable = osData.isEditable
             binding.txtOneSection.isFocusableInTouchMode = osData.isEditable
-//            osData.editText = binding.txtOneSection
-//            Log.d("EDIT", "osData.editText: ${osData.editText}")
-            if (osData.isCenter && osData.m9Num != ND.MANCENTER ){
-                mandalartData.osCenterOfSubList.add(binding.txtOneSection)
-//                Log.d("osos", "add osCS")
-            }
-            if (!osData.isCenter && osData.m9Num == ND.MANCENTER ){
-                mandalartData.osSubOfCenterList.add(binding.txtOneSection)
-//                Log.d("osos", "add osSC")
-            }
-
-//            binding.txtOneSection.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
-//                if (hasFocus){
-//
-//                }
-//                else {
-//                    osData.text = binding.txtOneSection.text.toString()
-//                }
-//            }
         }
 
     }
