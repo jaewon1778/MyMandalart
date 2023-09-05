@@ -1,13 +1,11 @@
 package com.jaewon.mymandalart.adapter
 
 import android.annotation.SuppressLint
-import android.text.Editable
-import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.jaewon.mymandalart.data.MandalartData
 import com.jaewon.mymandalart.data.Matrix9Data
 import com.jaewon.mymandalart.databinding.Matrix9Binding
 
@@ -41,7 +39,7 @@ class MainMdlAdapter : RecyclerView.Adapter<MainMdlAdapter.MainMdlViewHolder>() 
                 adapter = subMdlAdapter
                 layoutManager = GridLayoutManager(binding.gridMatrix.context, 3)
             }
-
+            Log.d("GridTestMMA", "MMA bind ${m9Data.m9Num}")
         }
 
 

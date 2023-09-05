@@ -3,11 +3,8 @@ package com.jaewon.mymandalart.adapter
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.jaewon.mymandalart.data.MandalartData
-import com.jaewon.mymandalart.data.NumberData
 import com.jaewon.mymandalart.data.OneSectionData
 import com.jaewon.mymandalart.databinding.OneSectionBinding
 
@@ -34,6 +31,7 @@ class SubMdlAdapter : RecyclerView.Adapter<SubMdlAdapter.SubMdlViewHolder>() {
             binding.txtOneSection.setText(osData.text)
             binding.txtOneSection.isFocusable = osData.isEditable
             binding.txtOneSection.isFocusableInTouchMode = osData.isEditable
+            Log.d("GridTestSMA", "SMA bind ${osData.osNum} of ${osData.m9Num}")
         }
 
     }
