@@ -36,7 +36,6 @@ class MainActivity : MyAppActivity() {
     private lateinit var dummyEditText:EditText
 
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -53,16 +52,13 @@ class MainActivity : MyAppActivity() {
 
 
         binding.btnEdit.setOnClickListener {
-//            Log.d("GridTest", "call btnEdit")
             isEditable = !isEditable
             for (mat in mandalartData.m9List){
                 for (os in mat.osList){
                     os.isEditable = isEditable
                 }
             }
-//            Log.d("GridTest", "before updateMan")
             updateMan()
-//            Log.d("GridTest", "after updateMan")
 
             if (isEditable){
                 binding.btnEdit.setImageResource(R.drawable.baseline_done_24)
@@ -75,11 +71,9 @@ class MainActivity : MyAppActivity() {
             }
             CoroutineScope(Dispatchers.Main).launch {
 //                delay(1000)
-//                Log.d("GridTest", "before wCUpdate")
                 wholeCenterUpdate(binding.mainGrid)
             }
 
-//            Log.d("GridTest", "done btnEdit ============================")
         }
         binding.btnCheck.setOnClickListener {
 //            val m9 = binding.mainGrid[ND.MANCENTER] as RecyclerView
@@ -88,9 +82,7 @@ class MainActivity : MyAppActivity() {
         }
 
         binding.btnTest.setOnClickListener {
-        Log.d("GridTest", "call btnTest")
         wholeCenterUpdate(binding.mainGrid)
-        Log.d("GridTest", "done btnTest ===============================")
         }
 
     }
@@ -105,14 +97,11 @@ class MainActivity : MyAppActivity() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun updateMan(){
-        Log.d("GridTest", "call updateMan")
-        binding.mainGrid.adapter?.notifyDataSetChanged()
-        binding.mainGrid.adapter?.notifyItemRangeChanged(0, 8)
-        Log.d("GridTest", "done updateMan")
+//        binding.mainGrid.adapter?.notifyDataSetChanged()
+        binding.mainGrid.adapter?.notifyItemRangeChanged(ND.MANSTART, ND.MANEND)
     }
 
     private fun saveMan(){
-        Log.d("GridTest", "call saveMan")
         var rcyM9 : RecyclerView
         var edOS : EditText
         var mat9 : Matrix9Data
@@ -128,25 +117,21 @@ class MainActivity : MyAppActivity() {
                 }
             }
         }
-        Log.d("GridTest", "done saveMan")
     }
 
 
     fun wholeCenterUpdate(maingrid: RecyclerView){
 
-        Log.d("GridTest", "call wCUpdate")
         val cenM9 = maingrid[ND.MANCENTER] as RecyclerView
         for (i in ND.MANSTART .. ND.MANEND){
             if (i == ND.MANCENTER) continue
             val subM9 = maingrid[i] as RecyclerView
             eachCenterUpdate(subM9[ND.MANCENTER] as EditText, cenM9[i] as EditText)
         }
-        Log.d("GridTest", "done wCUpdate")
     }
 
 
     fun eachCenterUpdate(subCenterET: EditText, centerSubET: EditText) {
-        Log.d("GridTest", "call eCUpdate")
         val scTextWatcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 centerSubET.text = s
@@ -177,7 +162,6 @@ class MainActivity : MyAppActivity() {
         }
         subCenterET.addTextChangedListener(scTextWatcher)
         centerSubET.addTextChangedListener(csTextWatcher)
-        Log.d("GridTest", "done eCUpdate")
     }
 
     fun setBlue(target: EditText){

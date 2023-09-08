@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.jaewon.mymandalart.data.NumberData
 
 open class MyAppActivity : AppCompatActivity(){
+
     val ND = NumberData()
 
     fun softKeyboardHide(activity: Activity) {

@@ -2,8 +2,9 @@ package com.jaewon.mymandalart.data
 
 data class MandalartData(
     var m9List: MutableList<Matrix9Data> = mutableListOf(),
-    val ND: NumberData = NumberData()
+
 ) {
+    val ND: NumberData = NumberData()
     fun initMan() {
         with(m9List) {
             for (i in ND.MANSTART..ND.MANEND) {
