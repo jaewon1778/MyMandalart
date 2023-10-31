@@ -10,4 +10,6 @@
         android:textSize="11sp"
         android:background="@drawable/bg_one_section"
         tools:ignore="MissingConstraints"
-        android:autofillHints="내용" />
+        android:overScrollMode="never"
+        android:autofillHints="내용"
+    />

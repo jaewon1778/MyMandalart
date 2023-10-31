@@ -5,7 +5,12 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.view.get
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,11 +41,22 @@ class MainActivity : MyAppActivity() {
     private lateinit var dummyEditText:EditText
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        // 툴바 세팅
+        val toolbar = binding.myToolbar.toolbar
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.title = "툴툴바바"
+        // 툴바 세팅
+
         dummyEditText = EditText(this)
         mandalartData = MandalartData()
         mandalartData.initMan()
@@ -56,6 +72,7 @@ class MainActivity : MyAppActivity() {
             for (mat in mandalartData.m9List){
                 for (os in mat.osList){
                     os.isEditable = isEditable
+                    Log.d("GridTestChange", "change ${os.osNum} of ${os.m9Num}")
                 }
             }
             updateMan()
@@ -88,17 +105,39 @@ class MainActivity : MyAppActivity() {
     }
 
     private fun setMan(){
+
         binding.mainGrid.apply {
             mainMdlAdapter.m9List = mandalartData.m9List
             layoutManager = gridManager
             adapter = mainMdlAdapter
         }
+
+//        binding.mainGrid.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener{
+//            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+//                if (e.action == MotionEvent.ACTION_DOWN){
+////                        m9Data.osList[4].checkOS()
+//                    val child: View = rv.findChildViewUnder(e.x,e.y) ?: return false
+//                    val position = rv.getChildLayoutPosition(child)
+////                        if(m9Data.osList[position].isEditable) return false
+//                    Log.d("GridTestTouchMain", "position : $position")
+//                    return false
+//                }
+//                return false
+//            }
+//
+//            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+//            }
+//
+//            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+//            }
+//
+//        })
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun updateMan(){
-//        binding.mainGrid.adapter?.notifyDataSetChanged()
-        binding.mainGrid.adapter?.notifyItemRangeChanged(ND.MANSTART, ND.MANEND)
+        binding.mainGrid.adapter?.notifyDataSetChanged()
+//        binding.mainGrid.adapter?.notifyItemRangeChanged(ND.MANSTART, ND.MANEND+1)
     }
 
     private fun saveMan(){

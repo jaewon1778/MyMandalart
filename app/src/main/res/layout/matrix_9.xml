@@ -8,4 +8,5 @@
         android:columnCount="3"
         tools:ignore="MissingConstraints"
         android:padding="3dp"
+        android:overScrollMode="never"
         />

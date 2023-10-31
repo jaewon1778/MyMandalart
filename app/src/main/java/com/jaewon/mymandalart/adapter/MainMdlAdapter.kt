@@ -37,39 +37,66 @@ class MainMdlAdapter : RecyclerView.Adapter<MainMdlAdapter.MainMdlViewHolder>() 
     class MainMdlViewHolder(private val binding: Matrix9Binding, parentContext : Context) : RecyclerView.ViewHolder(binding.root) {
 
         val parentContext : Context = parentContext
-        @SuppressLint("SetTextI18n")
+        @SuppressLint("SetTextI18n", "ClickableViewAccessibility", "NotifyDataSetChanged")
         fun bind(m9Data: Matrix9Data) {
             val subMdlAdapter = SubMdlAdapter()
-
 //            subMdlAdapter.m9Num = m9Data.m9Num
             subMdlAdapter.osList = m9Data.osList
+
             binding.gridMatrix.apply {
                 adapter = subMdlAdapter
                 layoutManager = GridLayoutManager(binding.gridMatrix.context, 3)
             }
-            binding.gridMatrix.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener{
-                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                    if (e.action == MotionEvent.ACTION_DOWN){
-//                        m9Data.osList[4].checkOS()
-                        val child: View = rv.findChildViewUnder(e.x,e.y) ?: return false
-                        val position = rv.getChildLayoutPosition(child)
-                        m9Data.osList[position].switchCheckingOS()
-                        rv.adapter?.notifyItemChanged(position)
-                        Toast.makeText(parentContext,"haha",Toast.LENGTH_SHORT).show()
-                        return true
+            binding.gridMatrix.setOnTouchListener { v, event ->
+                when(event.action){
+                    MotionEvent.ACTION_DOWN -> {
+//                        Log.d("MotionAct", "eventAction in M9 : ${event.action}")
                     }
-                    return false
-                }
+                    MotionEvent.ACTION_MOVE -> {
+//                        Log.d("MotionAct", "eventAction in M9 : ${event.action}")
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        Log.d("MotionAct", "eventAction in M9 : ${event.action}")
+                        m9Data.allOSSwitching()
+                        binding.gridMatrix.adapter?.notifyDataSetChanged()
+                        return@setOnTouchListener true
+                    }
+                    MotionEvent.ACTION_CANCEL -> {
+//                        Log.d("MotionAct", "eventAction in M9 : ${event.action}")
+                    }
 
-                override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
                 }
+                return@setOnTouchListener false
+            }
 
-                override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-                }
-
-            })
-            Log.d("ThreadTest", "MMA bind thread ${Thread.currentThread().name}")
+//            Log.d("ThreadTest", "MMA bind thread ${Thread.currentThread().name}")
             Log.d("GridTestMMA", "MMA bind ${m9Data.m9Num}")
+//            binding.gridMatrix.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener{
+//                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+//                    Log.d("GridTestTouchB","onITE")
+//                    if (e.action == MotionEvent.ACTION_DOWN){
+////                        m9Data.osList[4].checkOS()
+//                        val child: View = rv.findChildViewUnder(e.x,e.y) ?: return false
+//                        val position = rv.getChildLayoutPosition(child)
+//                        if(m9Data.osList[position].isEditable) return false
+//                        m9Data.osList[position].switchCheckingOS()
+//                        rv.adapter?.notifyItemChanged(position)
+//                        Toast.makeText(parentContext,"haha",Toast.LENGTH_SHORT).show()
+//                        Log.d("GridTestTouch", "touch ${m9Data.osList[position].osNum} of ${m9Data.osList[position].m9Num}" +
+//                                                        "       Editable : ${m9Data.osList[position].isEditable}, Checked : ${m9Data.osList[position].checked}"+
+//                                                        "       position : $position")
+//                        return false
+//                    }
+//                    return false
+//                }
+//
+//                override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+//                }
+//
+//                override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+//                }
+//
+//            })
         }
 
 

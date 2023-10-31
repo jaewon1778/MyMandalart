@@ -1,5 +1,7 @@
 package com.jaewon.mymandalart.data
 
+import android.widget.Toast
+
 data class Matrix9Data(
     var osList : MutableList<OneSectionData> = mutableListOf(),
     var isCenter : Boolean = false,
@@ -20,6 +22,20 @@ data class Matrix9Data(
         for (osData in osList){
             osData.text = ""
         }
+    }
+    fun allOSCheck(){
+        for (osData in osList){
+            osData.checkOS()
+        }
+    }
+    fun allOSUncheck(){
+        for (osData in osList){
+            osData.uncheckOS()
+        }
+    }
+    fun allOSSwitching(){
+        if (osList[ND.MANCENTER].checked) allOSUncheck()
+        else allOSCheck()
     }
 
     // 체크 확인

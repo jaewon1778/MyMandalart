@@ -15,7 +15,7 @@ data class MandalartData(
                         if (j==ND.MANCENTER) center = true
                         add(
                             OneSectionData(
-                            "1",
+                            text = "",
                             false,
                                 isCenter = center,
                                 m9Num = i,
